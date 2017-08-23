@@ -13,5 +13,8 @@
     "http": "0.0.0",
     "lirc-client": "^1.0.0",
     "request": "^2.81.0"
+  },
+  "devDependencies": {
+    "prompt": "^1.0.0"
   }
 }
