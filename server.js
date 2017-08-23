@@ -5,7 +5,7 @@ const IrReceiver = require('./irReceiver');
 var receiver = new IrReceiver();
 
 receiver.on('ready', function () {
-    console.log('receiver ready!', res);
+    console.log('receiver ready!');
 });
 
 receiver.on('receive', function (button) {
@@ -19,7 +19,6 @@ function sendWatch(device){
                 'device': device
             }
         };
-        activeDevice = device;
         return _sendCommand(command);
 }
 

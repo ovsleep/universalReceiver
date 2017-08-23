@@ -19,10 +19,11 @@ function IrReceiver(){
   });
 
   lirc.on('receive', function (remote, button, repeat) {
-    if(Date.now() - this.lastButton < 300){
+    if(Date.now() - self.lastButton < 300){
       console.log('Repeated button!');
       return;
     }
+    self.lastButton = Date.now();
     console.log('button ' + button + ' on remote ' + remote + ' was pressed!');
     if(remote == 'universal'){
         self.emit('receive', button);
