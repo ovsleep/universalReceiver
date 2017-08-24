@@ -5,12 +5,13 @@ const IrReceiver = require('./irReceiver');
 var receiver = new IrReceiver();
 var device = 'cable';
 
-var deviceSelectorsButtons = {
-  'IN_1': 'cable',
-  'IN_2': 'tv',
-  'IN_3': 'pi',
-  'IN_4': 'chrome',
-  'IN_5': 'xbox',
+var specialButtons = {
+  'IN_1': { device: 'cable', cmd: 'watch'},
+  'IN_2': { device: 'tv', cmd: 'watch'},
+  'IN_3': { device: 'pi', cmd: 'watch'},
+  'IN_4': { device: 'chrome', cmd: 'watch'},
+  'IN_5': { device: 'xbox', cmd: 'watch'},
+  'OFF': { device: 'tv', cmd: 'off'},
 }
 
 var keymapping = {
@@ -46,9 +47,11 @@ receiver.on('ready', function () {
 });
 
 receiver.on('receive', function (button) {
-    if(deviceSelectorsButtons[button]){
-      sendWatch(deviceSelectorsButtons[button]);
-      device = deviceSelectorsButtons[button];
+    if(specialButtons[button]){
+      var action = specialButtons[button];
+      console.log('specialButton: ' + button + ' - ' + action.cmd + ' - ' + action.device);
+      sendAction(action.cmd, action.device);
+      device = action.device;
       if(device == 'pi' || device == 'chrome'){
         device = 'tv';
       }
@@ -74,9 +77,9 @@ function sendKey(device, key){
         return _sendCommand(command);
 }
 
-function sendWatch(device){
+function sendAction(cmd, device){
   let command = {
-            'command': 'watch',
+            'command': cmd,
             'data': {
                 'device': device
             }
@@ -93,7 +96,7 @@ function _sendCommand(post_data){
    },
    json: post_data
  };
-
+console.log('sending command: ' + post_data);
  request(options, function(err, res, body) {
    if (res && (res.statusCode === 200 || res.statusCode === 201)) {
      console.log(body);
