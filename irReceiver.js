@@ -10,9 +10,9 @@ function IrReceiver(){
 
   this.lastButton = Date.now();
   var lirc = require('lirc-client')({
-    //path: '/var/run/lirc/lircd'
-    host: '127.0.0.1',
-    port: 9958
+    path: '/var/run/lirc/lircd'
+    //host: '127.0.0.1',
+   // port: 9958
   });
 
   lirc.on('connect', function () {

@@ -35,6 +35,9 @@ var keymapping = {
   },
   'xbox':{
     'GUIDE':'HOME'
+  },
+  'tv':{
+    'INFO':'TOOL'
   }
 }
 
